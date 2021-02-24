@@ -305,11 +305,68 @@ $(document).ready(function () {
 </div>
 
 
-<p>Hello, Website!</p>
-<p>For more information about simple R Markdown websites, please read the documentation at <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html" class="uri">https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html</a>.</p>
-<p>Please also note that simple R Markdown sites are <em>not</em> based on <strong>blogdown</strong>. They are probably good for websites with only a few Rmd documents. For larger-scale and more sophisticated websites (such as blogs), you may want to use <strong>blogdown</strong> instead: <a href="https://github.com/rstudio/blogdown" class="uri">https://github.com/rstudio/blogdown</a>.</p>
-<pre class="r"><code>plot(1:1000, sin(1:1000*100))</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" /><!-- --></p>
+<div id="notas-del-curso-de-inferencia-unalmed" class="section level1">
+<h1>Notas del curso de Inferencia, Unalmed</h1>
+<div id="usaré-el-dataset-survey-para-dar-un-uso-práctico-a-toda-la-teoria" class="section level2">
+<h2>Usaré el dataset ´survey´ para dar un uso práctico a toda la teoria</h2>
+<pre class="r"><code>library(MASS)
+data(survey)
+head(survey)</code></pre>
+<pre><code>##      Sex Wr.Hnd NW.Hnd W.Hnd    Fold Pulse    Clap Exer Smoke Height      M.I
+## 1 Female   18.5   18.0 Right  R on L    92    Left Some Never 173.00   Metric
+## 2   Male   19.5   20.5  Left  R on L   104    Left None Regul 177.80 Imperial
+## 3   Male   18.0   13.3 Right  L on R    87 Neither None Occas     NA     &lt;NA&gt;
+## 4   Male   18.8   18.9 Right  R on L    NA Neither None Never 160.00   Metric
+## 5   Male   20.0   20.0 Right Neither    35   Right Some Never 165.00   Metric
+## 6 Female   18.0   17.7 Right  L on R    64   Right Some Never 172.72 Imperial
+##      Age
+## 1 18.250
+## 2 17.583
+## 3 16.917
+## 4 20.333
+## 5 23.667
+## 6 21.000</code></pre>
+</div>
+</div>
+<div id="estadisticos-de-orden" class="section level1">
+<h1>Estadisticos de orden</h1>
+<pre class="r"><code>#1. Ordenar los datos
+
+pulsos &lt;- sort(survey[!is.na(survey$Pulse),]$Pulse)
+
+#2. Contar numero de datos
+
+n &lt;- length(pulsos)
+sprintf(&quot;numero de datos: %s&quot;, n)</code></pre>
+<pre><code>## [1] &quot;numero de datos: 192&quot;</code></pre>
+<pre class="r"><code>#3. Rango
+# Xn - X1
+
+sprintf(&quot;rango: %s&quot;, pulsos[n] - pulsos[1])</code></pre>
+<pre><code>## [1] &quot;rango: 69&quot;</code></pre>
+<pre class="r"><code>#4. Mediana
+#Como n es par:
+
+mediana &lt;- pulsos[(n+1)/2]
+
+#Si fuera impar
+#mediana &lt;- pulsos[n/2]+pulsos[(n/2) + 1]
+
+sprintf(&quot;mediana: %s&quot;, mediana)</code></pre>
+<pre><code>## [1] &quot;mediana: 72&quot;</code></pre>
+<pre class="r"><code>#5. Percentil
+p &lt;- 0.25
+
+#n*p
+#Si n*p es entero
+
+percentil &lt;- (pulsos[n*p] + pulsos[n*p + 1])/2
+
+#np siendo parte decimal de n*p
+#percentil &lt;- pulsos[np]
+print(paste(&quot;percentil&quot;, p, &quot;es:&quot;, percentil, sep=&quot; &quot;))</code></pre>
+<pre><code>## [1] &quot;percentil 0.25 es: 66&quot;</code></pre>
+</div>
 
 
 
