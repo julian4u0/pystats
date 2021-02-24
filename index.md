@@ -15,7 +15,10 @@ For more information about simple R Markdown websites, please read the documenta
 Please also note that simple R Markdown sites are _not_ based on **blogdown**. They are probably good for websites with only a few Rmd documents. For larger-scale and more sophisticated websites (such as blogs), you may want to use **blogdown** instead: https://github.com/rstudio/blogdown.
 
 
-```{r}
+
+```r
 plot(1:1000, sin(1:1000*100))
 ```
+
+![](index_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
