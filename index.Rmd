@@ -48,13 +48,15 @@ sprintf("mediana: %s", mediana)
 #5. Percentil
 p <- 0.25
 
-#n*p
+
 #Si n*p es entero
 
 percentil <- (pulsos[n*p] + pulsos[n*p + 1])/2
 
+#Si n*p no es entero
 #np siendo parte decimal de n*p
-#percentil <- pulsos[np]
+#percentil <- pulsos[np + 1]
+
 print(paste("percentil", p, "es:", percentil, sep=" "))
 ```
 
