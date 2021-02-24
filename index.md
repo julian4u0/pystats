@@ -1,5 +1,5 @@
 ---
-title: "My Website"
+title: "Notas del curso de Inferencia, Unalmed"
 
 
 output: 
@@ -8,10 +8,8 @@ output:
     
 ---
 
-# Notas del curso de Inferencia, Unalmed
-
-
-## Usaré el dataset ´survey´ para dar un uso práctico a toda la teoria 
+# Datos
+Usaré el dataset ´survey´ para dar un uso práctico a toda la teoria 
 
 ```r
 library(MASS)
