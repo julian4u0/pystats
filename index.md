@@ -84,17 +84,164 @@ sprintf("mediana: %s", mediana)
 #5. Percentil
 p <- 0.25
 
-#n*p
+
 #Si n*p es entero
 
 percentil <- (pulsos[n*p] + pulsos[n*p + 1])/2
 
+#Si n*p no es entero
 #np siendo parte decimal de n*p
-#percentil <- pulsos[np]
+#percentil <- pulsos[np + 1]
+
 print(paste("percentil", p, "es:", percentil, sep=" "))
 ```
 
 ```
 ## [1] "percentil 0.25 es: 66"
 ```
+
+# TLC
+
+
+```r
+tlcbin <- function(p) 
+{
+    n <- c(10, 15, 20, 30, 60, 100, 200, 500, 1000)
+    mat <- matrix(0, 1000, length(n))
+    for (j in 1:length(n)) {
+        for (i in 1:1000) {
+            mat[i, j] <- (rbinom(1, n[j], p) - n[j] * p)/sqrt(n[j] * 
+                p * (1 - p))
+        }
+    }
+    par(mfrow = c(3, 3))
+    hist(mat[, 1], xlab = "Medias", main = "Histograma para Medias, n=10", 
+        freq = FALSE)
+    hist(mat[, 2], xlab = "Medias", main = "Histograma para Medias, n=15", 
+        freq = FALSE)
+    hist(mat[, 3], xlab = "Medias", main = "Histograma para Medias, n=20", 
+        freq = FALSE)
+    hist(mat[, 4], xlab = "Medias", main = "Histograma para Medias, n=30", 
+        freq = FALSE)
+    hist(mat[, 5], xlab = "Medias", main = "Histograma para Medias, n=60", 
+        freq = FALSE)
+    hist(mat[, 6], xlab = "Medias", main = "Histograma para Medias, n=100", 
+        freq = FALSE)
+    hist(mat[, 7], xlab = "Medias", main = "Histograma para Medias, n=200", 
+        freq = FALSE)
+    hist(mat[, 8], xlab = "Medias", main = "Histograma para Medias, n=500", 
+        freq = FALSE)
+    hist(mat[, 9], xlab = "Medias", main = "Histograma para Medias, n=1000", 
+        freq = FALSE)
+}
+
+tlcexp <- function(lam) 
+{
+    n <- c(10, 15, 20, 30, 60, 100, 200, 500, 1000)
+    mat <- matrix(0, 1000, length(n))
+    for (j in 1:length(n)) {
+        for (i in 1:1000) {
+            aux <- rexp(n[j], lam)
+            med <- mean(aux)
+            mu = 1/lam
+            sd = 1/lam
+            mat[i, j] <- sqrt(n[j]) * (med - mu)/sd
+        }
+    }
+    par(mfrow = c(3, 3))
+    hist(mat[, 1], xlab = "Medias", main = "Histograma para Medias, n=10", 
+        freq = FALSE)
+    hist(mat[, 2], xlab = "Medias", main = "Histograma para Medias, n=15", 
+        freq = FALSE)
+    hist(mat[, 3], xlab = "Medias", main = "Histograma para Medias, n=20", 
+        freq = FALSE)
+    hist(mat[, 4], xlab = "Medias", main = "Histograma para Medias, n=30", 
+        freq = FALSE)
+    hist(mat[, 5], xlab = "Medias", main = "Histograma para Medias, n=60", 
+        freq = FALSE)
+    hist(mat[, 6], xlab = "Medias", main = "Histograma para Medias, n=100", 
+        freq = FALSE)
+    hist(mat[, 7], xlab = "Medias", main = "Histograma para Medias, n=200", 
+        freq = FALSE)
+    hist(mat[, 8], xlab = "Medias", main = "Histograma para Medias, n=500", 
+        freq = FALSE)
+    hist(mat[, 9], xlab = "Medias", main = "Histograma para Medias, n=1000", 
+        freq = FALSE)
+}
+
+tlcpois <- function(lam) 
+{
+    n <- c(10, 15, 20, 30, 60, 100, 200, 500, 1000)
+    mat <- matrix(0, 1000, length(n))
+    for (j in 1:length(n)) {
+        for (i in 1:1000) {
+            aux <- rpois(n[j], lam)
+            med <- mean(aux)
+            mat[i, j] <- sqrt(n[j]) * (med - lam)/sqrt(lam)
+        }
+    }
+    par(mfrow = c(3, 3))
+    hist(mat[, 1], xlab = "Medias", main = "Histograma para Medias, n=10", 
+        freq = FALSE)
+    hist(mat[, 2], xlab = "Medias", main = "Histograma para Medias, n=15", 
+        freq = FALSE)
+    hist(mat[, 3], xlab = "Medias", main = "Histograma para Medias, n=20", 
+        freq = FALSE)
+    hist(mat[, 4], xlab = "Medias", main = "Histograma para Medias, n=30", 
+        freq = FALSE)
+    hist(mat[, 5], xlab = "Medias", main = "Histograma para Medias, n=60", 
+        freq = FALSE)
+    hist(mat[, 6], xlab = "Medias", main = "Histograma para Medias, n=100", 
+        freq = FALSE)
+    hist(mat[, 7], xlab = "Medias", main = "Histograma para Medias, n=200", 
+        freq = FALSE)
+    hist(mat[, 8], xlab = "Medias", main = "Histograma para Medias, n=500", 
+        freq = FALSE)
+    hist(mat[, 9], xlab = "Medias", main = "Histograma para Medias, n=1000", 
+        freq = FALSE)
+}
+
+tlcunif <- function(a, b) 
+{
+    n <- c(10, 15, 20, 30, 60, 100, 200, 500, 1000)
+    mat <- matrix(0, 1000, length(n))
+    for (j in 1:length(n)) {
+        for (i in 1:1000) {
+            aux <- runif(n[j], a, b)
+            med <- mean(aux)
+            mu = (a + b)/2
+            sd = sqrt(((b - a)^2)/12)
+            mat[i, j] <- sqrt(n[j]) * (med - mu)/sd
+        }
+    }
+    par(mfrow = c(3, 3))
+    hist(mat[, 1], xlab = "Medias", main = "Histograma para Medias, n=10", 
+        freq = FALSE)
+    hist(mat[, 2], xlab = "Medias", main = "Histograma para Medias, n=15", 
+        freq = FALSE)
+    hist(mat[, 3], xlab = "Medias", main = "Histograma para Medias, n=20", 
+        freq = FALSE)
+    hist(mat[, 4], xlab = "Medias", main = "Histograma para Medias, n=30", 
+        freq = FALSE)
+    hist(mat[, 5], xlab = "Medias", main = "Histograma para Medias, n=60", 
+        freq = FALSE)
+    hist(mat[, 6], xlab = "Medias", main = "Histograma para Medias, n=100", 
+        freq = FALSE)
+    hist(mat[, 7], xlab = "Medias", main = "Histograma para Medias, n=200", 
+        freq = FALSE)
+    hist(mat[, 8], xlab = "Medias", main = "Histograma para Medias, n=500", 
+        freq = FALSE)
+    hist(mat[, 9], xlab = "Medias", main = "Histograma para Medias, n=1000", 
+        freq = FALSE)
+}
+```
+
+
+```r
+#TLC DE BINOMIAL CON Probabilidad 0.2
+tlcbin(0.2)
+```
+
+![](index_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 
